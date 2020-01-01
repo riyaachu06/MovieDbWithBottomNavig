@@ -7,6 +7,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,13 +38,9 @@ import retrofit2.Response;
 
 
 public class FragmentPopularMovies extends Fragment {
-
-    String api_key = "8a940d7709a57a2398b0f39f63ce3f30";
     RecyclerView recyclerView;
-    Apiinterface apiService;
     List<Result> dataset = new ArrayList<>();
     PopularMovieTitleAdapter popularMovieTitleAdapter;
-    int page = 1;
     public static final String ITEM = "item";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,57 +54,46 @@ public class FragmentPopularMovies extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recyclerView);
         initviews();
-        popularMovieTitleAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            }
-
+        PopularMovieViewModel popularmovieViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
+        popularmovieViewModel.getPopularMovieDetails().observe(this, new Observer<DatumResponse2>() {
             @Override
-            public void onItemClick(int position) {
-                Intent intent = new Intent(getContext(), Main3Activity.class);
-                intent.putExtra(ITEM, dataset.get(position));
-                startActivity(intent);
+            public void onChanged(DatumResponse2 datumResponse2) {
+                if (datumResponse2.getResults() != null) {
+                    dataset.addAll(datumResponse2.getResults());
+//                        title_adapter.notifyItemRangeChanged(page, dataset.size());
+                }
+                popularMovieTitleAdapter = new PopularMovieTitleAdapter(getActivity(), dataset);
+//                popularMovieTitleAdapter.setOnItemClickListener(this);
+                recyclerView.setAdapter(popularMovieTitleAdapter);
+
+                popularMovieTitleAdapter.setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    }
+
+                    @Override
+                    public void onItemClick(int position) {
+                        Intent intent = new Intent(getContext(), Main3Activity.class);
+                        intent.putExtra(ITEM, dataset.get(position));
+                        startActivity(intent);
+                    }
+                });
             }
         });
+
     }
 
     private void initviews() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        popularMovieTitleAdapter = new PopularMovieTitleAdapter(getActivity(), dataset);
-        popularMovieTitleAdapter.setOnItemClickListener(this);
-        recyclerView.setAdapter(popularMovieTitleAdapter);
-        loadJSON(page);
     }
 
-    private void loadJSON(final int page) {
-        apiService = APIclient.getClient().create(Apiinterface.class);
-        Call<DatumResponse2> call = apiService.getPopoularMovieDetails(api_key, page);
-        call.enqueue(new Callback<DatumResponse2>() {
-            @Override
-            public void onResponse(Call<DatumResponse2> call, Response<DatumResponse2> response) {
-                if (response != null) {
 
-                    DatumResponse2 item = response.body();
 
-                    if (item.getResults() != null) {
-                        dataset.addAll(item.getResults());
-                        popularMovieTitleAdapter.notifyItemRangeChanged(page, dataset.size());
-                    }
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DatumResponse2> call, Throwable t) {
-
-            }
-        });
-    }
-
-    public void drawnext() {
-        ++page;
-        loadJSON(page);
-    }
+//    public void drawnext() {
+//        ++page;
+//        loadJSON(page);
+//    }
 }

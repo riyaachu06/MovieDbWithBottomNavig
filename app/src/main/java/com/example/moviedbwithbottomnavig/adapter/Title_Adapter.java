@@ -49,11 +49,11 @@ public class Title_Adapter extends RecyclerView.Adapter {
             title_userViewHolder = (Title_UserViewHolder) holder;
             settitleuserviewholder(title_userViewHolder, position);
         }
-        if (dataset.size() > 1) {
-            if (position == dataset.size() - 1) {
-                listener2.drawnext();
-            }
-        }
+//        if (dataset.size() > 1) {
+//            if (position == dataset.size() - 1) {
+//                listener2.drawnext();
+//            }
+//        }
     }
 
     private void settitleuserviewholder(Title_UserViewHolder title_userViewHolder, int position) {
