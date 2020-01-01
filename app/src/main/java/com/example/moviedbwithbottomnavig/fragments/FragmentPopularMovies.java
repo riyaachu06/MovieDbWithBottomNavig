@@ -17,24 +17,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
-import com.example.moviedbwithbottomnavig.APIclient;
-import com.example.moviedbwithbottomnavig.Apiinterface;
-import com.example.moviedbwithbottomnavig.Main2Activity;
-import com.example.moviedbwithbottomnavig.Main3Activity;
+import com.example.moviedbwithbottomnavig.activity.PopularMovieActivity;
 import com.example.moviedbwithbottomnavig.R;
 import com.example.moviedbwithbottomnavig.adapter.PopularMovieTitleAdapter;
-import com.example.moviedbwithbottomnavig.adapter.Title_Adapter;
 import com.example.moviedbwithbottomnavig.interfaces.OnItemClickListener;
-import com.example.moviedbwithbottomnavig.modelclass.DatumResponse;
 import com.example.moviedbwithbottomnavig.modelclass.popularmoviemodels.DatumResponse2;
 import com.example.moviedbwithbottomnavig.modelclass.popularmoviemodels.Result;
+import com.example.moviedbwithbottomnavig.viewmodelclass.PopularMovieViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class FragmentPopularMovies extends Fragment {
@@ -42,6 +34,9 @@ public class FragmentPopularMovies extends Fragment {
     List<Result> dataset = new ArrayList<>();
     PopularMovieTitleAdapter popularMovieTitleAdapter;
     public static final String ITEM = "item";
+    int page = 1;
+    PopularMovieViewModel popularmovieViewModel;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,46 +49,50 @@ public class FragmentPopularMovies extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recyclerView);
         initviews();
+        itemClick();
+        popularmovieViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
+        fetchMovieLists();
 
-        PopularMovieViewModel popularmovieViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
-        popularmovieViewModel.getPopularMovieDetails().observe(this, new Observer<DatumResponse2>() {
+    }
+
+    private void fetchMovieLists() {
+        popularmovieViewModel.getPopularMovieDetails().observe(getViewLifecycleOwner(), new Observer<DatumResponse2>() {
             @Override
             public void onChanged(DatumResponse2 datumResponse2) {
                 if (datumResponse2.getResults() != null) {
+                    int previousSize = dataset.size();
                     dataset.addAll(datumResponse2.getResults());
-//                        title_adapter.notifyItemRangeChanged(page, dataset.size());
+                    popularMovieTitleAdapter.notifyItemRangeChanged(previousSize, datumResponse2.getResults().size());
                 }
-                popularMovieTitleAdapter = new PopularMovieTitleAdapter(getActivity(), dataset);
-//                popularMovieTitleAdapter.setOnItemClickListener(this);
-                recyclerView.setAdapter(popularMovieTitleAdapter);
 
-                popularMovieTitleAdapter.setOnItemClickListener(new OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    }
-
-                    @Override
-                    public void onItemClick(int position) {
-                        Intent intent = new Intent(getContext(), Main3Activity.class);
-                        intent.putExtra(ITEM, dataset.get(position));
-                        startActivity(intent);
-                    }
-                });
             }
         });
+    }
 
+    private void itemClick() {
+        popularMovieTitleAdapter.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(int position) {
+                Intent intent = new Intent(getContext(), PopularMovieActivity.class);
+                intent.putExtra(ITEM, dataset.get(position));
+                startActivity(intent);
+            }
+        });
     }
 
     private void initviews() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+        popularMovieTitleAdapter = new PopularMovieTitleAdapter(getActivity(), dataset);
+        popularMovieTitleAdapter.setOnItemClickListener(this);
+        recyclerView.setAdapter(popularMovieTitleAdapter);
     }
 
 
-
-//    public void drawnext() {
-//        ++page;
-//        loadJSON(page);
-//    }
+    public void drawnext() {
+        ++page;
+        fetchMovieLists();
+    }
 }

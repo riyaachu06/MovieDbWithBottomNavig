@@ -47,11 +47,11 @@ public class PopularMovieTitleAdapter extends RecyclerView.Adapter {
             settitleuserviewholder(popularTitle_userViewHolder, position);
         }
 
-//        if (dataset.size() > 1) {
-//            if (position == dataset.size() - 1) {
-//                listener2.drawnext();
-//            }
-//        }
+        if (dataset.size() > 1) {
+            if (position == dataset.size() - 1) {
+                listener2.drawnext();
+            }
+        }
     }
 
     private void settitleuserviewholder(PopularTitle_UserViewHolder popularTitle_userViewHolder, int position) {

@@ -15,7 +15,9 @@ import com.example.moviedbwithbottomnavig.databinding.TitleLayoutBinding;
 import com.example.moviedbwithbottomnavig.fragments.FragmentMovie;
 import com.example.moviedbwithbottomnavig.interfaces.OnItemClickListener;
 import com.example.moviedbwithbottomnavig.modelclass.Result;
+import com.example.moviedbwithbottomnavig.usersrepo.MovieRepo;
 import com.example.moviedbwithbottomnavig.viewholder.Title_UserViewHolder;
+import com.example.moviedbwithbottomnavig.viewmodelclass.MovieViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,11 +51,11 @@ public class Title_Adapter extends RecyclerView.Adapter {
             title_userViewHolder = (Title_UserViewHolder) holder;
             settitleuserviewholder(title_userViewHolder, position);
         }
-//        if (dataset.size() > 1) {
-//            if (position == dataset.size() - 1) {
-//                listener2.drawnext();
-//            }
-//        }
+        if (dataset.size() > 1) {
+            if (position == dataset.size() - 1) {
+                listener2.drawnext();
+            }
+        }
     }
 
     private void settitleuserviewholder(Title_UserViewHolder title_userViewHolder, int position) {

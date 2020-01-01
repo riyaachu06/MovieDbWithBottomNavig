@@ -1,10 +1,10 @@
-package com.example.moviedbwithbottomnavig.fragments;
+package com.example.moviedbwithbottomnavig.usersrepo;
 
 import android.app.Application;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.moviedbwithbottomnavig.Apiinterface;
+import com.example.moviedbwithbottomnavig.interfaces.Apiinterface;
 import com.example.moviedbwithbottomnavig.modelclass.DatumResponse;
 
 import retrofit2.Call;
@@ -14,12 +14,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieRepo {
-    String api_key = "8a940d7709a57a2398b0f39f63ce3f30";
-    int page = 1;
+    private static String api_key="8a940d7709a57a2398b0f39f63ce3f30";
     private static MovieRepo repoInstance;
     private final Application application;
 
-    public MovieRepo(Application application) {
+    private MovieRepo(Application application) {
         this.application = application;
     }
 
@@ -30,7 +29,7 @@ public class MovieRepo {
         return repoInstance;
     }
 
-    public MutableLiveData<DatumResponse> getMovieDetails() {
+    public  MutableLiveData<DatumResponse> getMovieDetails(int page) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Apiinterface.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -39,11 +38,11 @@ public class MovieRepo {
         Apiinterface api = retrofit.create(Apiinterface.class);
 
         final MutableLiveData<DatumResponse> mutableLiveData = new MutableLiveData<>();
-        Call<DatumResponse> call = api.getMovieDetails(api_key,page);
+        Call<DatumResponse> call = api.getMovieDetails(api_key, page);
         call.enqueue(new Callback<DatumResponse>() {
             @Override
             public void onResponse(Call<DatumResponse> call, Response<DatumResponse> response) {
-                if(response!=null){
+                if (response != null) {
 
                     mutableLiveData.setValue(response.body());
                 }
@@ -55,5 +54,6 @@ public class MovieRepo {
             }
         });
         return mutableLiveData;
-}
+    }
+
 }

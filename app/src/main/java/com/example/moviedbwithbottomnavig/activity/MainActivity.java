@@ -1,8 +1,9 @@
-package com.example.moviedbwithbottomnavig;
+package com.example.moviedbwithbottomnavig.activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.moviedbwithbottomnavig.R;
 import com.example.moviedbwithbottomnavig.databinding.ActivityMainBinding;
 import com.example.moviedbwithbottomnavig.fragments.FragmentHome;
 import com.example.moviedbwithbottomnavig.fragments.FragmentMovie;

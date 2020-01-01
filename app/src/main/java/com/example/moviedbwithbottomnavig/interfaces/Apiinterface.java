@@ -1,4 +1,4 @@
-package com.example.moviedbwithbottomnavig;
+package com.example.moviedbwithbottomnavig.interfaces;
 
 
 import com.example.moviedbwithbottomnavig.modelclass.DatumResponse;

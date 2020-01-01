@@ -18,17 +18,16 @@ public class Title_UserViewHolder extends RecyclerView.ViewHolder {
     public Title_UserViewHolder(TitleLayoutBinding titlebinding, OnItemClickListener listener) {
         super(titlebinding.getRoot());
         this.titlebinding = titlebinding;
-        mListener=listener;
+        mListener = listener;
 
 
         titlebinding.cardview.setOnClickListener(new View.OnClickListener() { // we can handle the click as like we do in normal
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    int position = getAdapterPosition(); // Get the index of the view holder
-                    // Makes sure this position is still valid
+                    int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION)
-                        mListener.onItemClick(position); // we catch the click on the item view then pass it over the interface and then to our activity
+                        mListener.onItemClick(position);
                 }
 
             }
@@ -43,6 +42,6 @@ public class Title_UserViewHolder extends RecyclerView.ViewHolder {
 
     public void titlebind(Result titleresult) {
         titlebinding.setTitle(titleresult);
-        titlebinding.executePendingBindings();//is important in order to execute the data binding immediately. Otherwise it can populate incorrect view.
+        titlebinding.executePendingBindings();
     }
 }

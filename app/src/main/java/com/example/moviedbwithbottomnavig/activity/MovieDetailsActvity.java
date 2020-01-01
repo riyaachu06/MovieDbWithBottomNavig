@@ -1,4 +1,4 @@
-package com.example.moviedbwithbottomnavig;
+package com.example.moviedbwithbottomnavig.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,18 +6,19 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.example.moviedbwithbottomnavig.R;
 import com.example.moviedbwithbottomnavig.databinding.ActivityMain2Binding;
 import com.example.moviedbwithbottomnavig.modelclass.Result;
 
 import static com.example.moviedbwithbottomnavig.fragments.FragmentMovie.ITEM;
 
 
-public class Main2Activity extends AppCompatActivity {
+public class MovieDetailsActvity extends AppCompatActivity {
     ActivityMain2Binding activityMain2Binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityMain2Binding= DataBindingUtil.setContentView(this,R.layout.activity_main2);
+        activityMain2Binding= DataBindingUtil.setContentView(this, R.layout.activity_main2);
         Intent intent = getIntent();
         Result clickedItem = intent.getParcelableExtra(ITEM);
         activityMain2Binding.setDetails(clickedItem);

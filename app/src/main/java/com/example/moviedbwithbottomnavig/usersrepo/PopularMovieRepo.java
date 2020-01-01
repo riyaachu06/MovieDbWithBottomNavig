@@ -1,12 +1,11 @@
-package com.example.moviedbwithbottomnavig.fragments;
+package com.example.moviedbwithbottomnavig.usersrepo;
 
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.moviedbwithbottomnavig.Apiinterface;
-import com.example.moviedbwithbottomnavig.modelclass.DatumResponse;
+import com.example.moviedbwithbottomnavig.interfaces.Apiinterface;
 import com.example.moviedbwithbottomnavig.modelclass.popularmoviemodels.DatumResponse2;
 
 import retrofit2.Call;
@@ -21,7 +20,7 @@ public class PopularMovieRepo {
     private static PopularMovieRepo repoInstance;
     private final Application application;
 
-    public PopularMovieRepo(Application application) {
+    private PopularMovieRepo(Application application) {
         this.application = application;
     }
 
