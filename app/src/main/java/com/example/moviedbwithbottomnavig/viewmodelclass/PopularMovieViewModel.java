@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 
-import com.example.moviedbwithbottomnavig.modelclass.popularmoviemodels.DatumResponse2;
+import com.example.moviedbwithbottomnavig.modelclass.DatumResponse;
 import com.example.moviedbwithbottomnavig.usersrepo.PopularMovieRepo;
 
 
@@ -21,7 +21,7 @@ public class PopularMovieViewModel extends AndroidViewModel {
         popularMovieRepo = PopularMovieRepo.getinstance(application);
     }
 
-    public LiveData<DatumResponse2> getPopularMovieDetails() {
+    public LiveData<DatumResponse> getPopularMovieDetails() {
 
         return popularMovieRepo.getPopularMovieDetails();
     }

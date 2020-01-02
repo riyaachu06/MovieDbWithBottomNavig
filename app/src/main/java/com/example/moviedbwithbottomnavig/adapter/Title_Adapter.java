@@ -1,35 +1,28 @@
 package com.example.moviedbwithbottomnavig.adapter;
 
-import android.app.FragmentManager;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moviedbwithbottomnavig.Utility;
-import com.example.moviedbwithbottomnavig.databinding.TitleLayoutBinding;
-import com.example.moviedbwithbottomnavig.fragments.FragmentMovie;
+import com.example.moviedbwithbottomnavig.databinding.ItemTitlelayoutBinding;
 import com.example.moviedbwithbottomnavig.interfaces.OnItemClickListener;
 import com.example.moviedbwithbottomnavig.modelclass.Result;
-import com.example.moviedbwithbottomnavig.usersrepo.MovieRepo;
 import com.example.moviedbwithbottomnavig.viewholder.Title_UserViewHolder;
-import com.example.moviedbwithbottomnavig.viewmodelclass.MovieViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class Title_Adapter extends RecyclerView.Adapter {
-    private List<Result> dataset = new ArrayList<>();
+    private List<Result> dataset ;
     Context context;
     private OnItemClickListener mListener;
-    private FragmentMovie listener2;
 
-    public Title_Adapter(FragmentActivity context, List<Result> dataset) {
+    public Title_Adapter(Context context, List<Result> dataset) {
         this.context = context;
         this.dataset = dataset;
     }
@@ -38,7 +31,7 @@ public class Title_Adapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        TitleLayoutBinding titlebinding = TitleLayoutBinding
+        ItemTitlelayoutBinding titlebinding = ItemTitlelayoutBinding
                 .inflate(inflater, parent, false);
         return new Title_UserViewHolder(titlebinding, mListener);
     }
@@ -53,7 +46,7 @@ public class Title_Adapter extends RecyclerView.Adapter {
         }
         if (dataset.size() > 1) {
             if (position == dataset.size() - 1) {
-                listener2.drawnext();
+                mListener.drawNext();
             }
         }
     }
@@ -82,7 +75,4 @@ public class Title_Adapter extends RecyclerView.Adapter {
         mListener = listener;
     }
 
-    public void setOnItemClickListener(FragmentMovie listener) {
-        listener2=listener;
-    }
 }

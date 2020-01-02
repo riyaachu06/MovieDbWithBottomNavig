@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.moviedbwithbottomnavig.interfaces.Apiinterface;
-import com.example.moviedbwithbottomnavig.modelclass.popularmoviemodels.DatumResponse2;
+import com.example.moviedbwithbottomnavig.modelclass.DatumResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,7 +31,7 @@ public class PopularMovieRepo {
         return repoInstance;
     }
 
-    public LiveData<DatumResponse2> getPopularMovieDetails() {
+    public LiveData<DatumResponse> getPopularMovieDetails() {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Apiinterface.BASE_URL)
@@ -39,11 +39,11 @@ public class PopularMovieRepo {
                 .build();
 
         Apiinterface api = retrofit.create(Apiinterface.class);
-        final MutableLiveData<DatumResponse2> mutableLiveData = new MutableLiveData<>();
-        Call<DatumResponse2> call = api.getPopoularMovieDetails(api_key,page);
-        call.enqueue(new Callback<DatumResponse2>() {
+        final MutableLiveData<DatumResponse> mutableLiveData = new MutableLiveData<>();
+        Call<DatumResponse> call = api.getPopoularMovieDetails(api_key,page);
+        call.enqueue(new Callback<DatumResponse>() {
             @Override
-            public void onResponse(Call<DatumResponse2> call, Response<DatumResponse2> response) {
+            public void onResponse(Call<DatumResponse> call, Response<DatumResponse> response) {
                 if(response!=null){
 
                     mutableLiveData.setValue(response.body());
@@ -51,7 +51,7 @@ public class PopularMovieRepo {
             }
 
             @Override
-            public void onFailure(Call<DatumResponse2> call, Throwable t) {
+            public void onFailure(Call<DatumResponse> call, Throwable t) {
 
             }
         });

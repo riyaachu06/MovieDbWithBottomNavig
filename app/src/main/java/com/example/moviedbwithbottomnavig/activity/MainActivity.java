@@ -18,11 +18,16 @@ import androidx.fragment.app.Fragment;
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding activityMainBinding;
     Fragment fragment = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         loadFragment(new FragmentHome());
+        loadNavigationFrgamnets();
+    }
+
+    private void loadNavigationFrgamnets() {
         activityMainBinding.navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -53,6 +58,6 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    }
+}
 
 

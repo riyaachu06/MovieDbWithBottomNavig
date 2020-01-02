@@ -6,6 +6,7 @@ import android.widget.AdapterView;
 public interface OnItemClickListener  {
 
     void onItemClick(int position);
+    void drawNext();
 
 
 }

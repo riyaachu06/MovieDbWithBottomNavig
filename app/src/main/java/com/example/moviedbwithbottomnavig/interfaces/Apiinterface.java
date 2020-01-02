@@ -2,7 +2,6 @@ package com.example.moviedbwithbottomnavig.interfaces;
 
 
 import com.example.moviedbwithbottomnavig.modelclass.DatumResponse;
-import com.example.moviedbwithbottomnavig.modelclass.popularmoviemodels.DatumResponse2;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ public interface Apiinterface {
      Call<DatumResponse> getMovieDetails(@Query("api_key") String api_key, @Query("page") int page);
 
     @GET("3/movie/popular")
-    Call<DatumResponse2> getPopoularMovieDetails(@Query("api_key") String api_key, @Query("page") int page);
+    Call<DatumResponse> getPopoularMovieDetails(@Query("api_key") String api_key, @Query("page") int page);
 
     public static final String BASE_URL = "https://api.themoviedb.org/";
 

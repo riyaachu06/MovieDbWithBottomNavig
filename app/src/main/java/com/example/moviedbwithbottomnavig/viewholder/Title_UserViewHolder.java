@@ -1,21 +1,19 @@
 package com.example.moviedbwithbottomnavig.viewholder;
 
 import android.view.View;
-import android.widget.AdapterView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.moviedbwithbottomnavig.databinding.TitleLayoutBinding;
-import com.example.moviedbwithbottomnavig.fragments.FragmentMovie;
+import com.example.moviedbwithbottomnavig.databinding.ItemTitlelayoutBinding;
 import com.example.moviedbwithbottomnavig.interfaces.OnItemClickListener;
 import com.example.moviedbwithbottomnavig.modelclass.Result;
 
 public class Title_UserViewHolder extends RecyclerView.ViewHolder {
 
-    private TitleLayoutBinding titlebinding;
+    private ItemTitlelayoutBinding titlebinding;
     private OnItemClickListener mListener;
 
-    public Title_UserViewHolder(TitleLayoutBinding titlebinding, OnItemClickListener listener) {
+    public Title_UserViewHolder(ItemTitlelayoutBinding titlebinding, OnItemClickListener listener) {
         super(titlebinding.getRoot());
         this.titlebinding = titlebinding;
         mListener = listener;
@@ -35,7 +33,7 @@ public class Title_UserViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public TitleLayoutBinding getTitleBinding() {
+    public ItemTitlelayoutBinding getTitleBinding() {
 
         return titlebinding;
     }

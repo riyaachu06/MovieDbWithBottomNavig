@@ -7,22 +7,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.example.moviedbwithbottomnavig.R;
-import com.example.moviedbwithbottomnavig.databinding.ActivityMain2Binding;
+import com.example.moviedbwithbottomnavig.databinding.ActivityMoviedetailsBinding;
 import com.example.moviedbwithbottomnavig.modelclass.Result;
 
 import static com.example.moviedbwithbottomnavig.fragments.FragmentMovie.ITEM;
 
 
 public class MovieDetailsActvity extends AppCompatActivity {
-    ActivityMain2Binding activityMain2Binding;
+    ActivityMoviedetailsBinding activityMoviedetailsBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityMain2Binding= DataBindingUtil.setContentView(this, R.layout.activity_main2);
+        activityMoviedetailsBinding= DataBindingUtil.setContentView(this, R.layout.activity_moviedetails);
+        getMovieDetails();
+    }
+    private void getMovieDetails() {
         Intent intent = getIntent();
         Result clickedItem = intent.getParcelableExtra(ITEM);
-        activityMain2Binding.setDetails(clickedItem);
-
-        activityMain2Binding.ratingBar.setRating(Float.parseFloat(Double.toString(clickedItem.getVoteAverage())));
+        activityMoviedetailsBinding.setDetails(clickedItem);
+        activityMoviedetailsBinding.include.ratingBar.setRating(Float.parseFloat(Double.toString(clickedItem.getVoteAverage())));
     }
 }
